@@ -1,0 +1,83 @@
+<!-- [ navigation menu ] start -->
+<nav class="pcoded-navbar menupos-fixed menu-light">
+  <div class="navbar-wrapper">
+    <div class="navbar-content scroll-div">
+      <ul class="nav pcoded-inner-navbar">
+        <li class="nav-item pcoded-menu-caption"></li>
+        <li class="nav-item">
+          <a href="/" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="feather icon-home" style="color: #f07d00"></i></span
+            ><span class="pcoded-mtext" style="color: black">Dashboard</span></a
+          >
+        </li>
+        <li class="nav-item pcoded-menu-caption">
+          <label>Student Management</label>
+        </li>
+        <li class="nav-item">
+          <a href="/students" class="nav-link"
+            ><span class="pcoded-micon"
+              ><i class="fa fa-plus" style="color: #f07d00"></i></span
+            ><span class="pcoded-mtext" style="color: black"
+              >Add Students</span
+            ></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/show" class="nav-link"
+            ><span class="pcoded-micon"
+              ><i
+                class="feather icon-align-justify"
+                style="color: #f07d00"
+              ></i></span
+            ><span class="pcoded-mtext" style="color: black"
+              >View Students</span
+            ></a
+          >
+        </li>
+        <li class="nav-item pcoded-menu-caption">
+          <label>Data-Source Management</label>
+        </li>
+        <li class="nav-item">
+          <a href="/data_sources" class="nav-link">
+            <span class="pcoded-micon">
+              <i
+                style="color: #f07d00"
+                class="feather icon-download-cloud"
+              ></i></span
+            ><span class="pcoded-mtext">Add Data-Source</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/data_source/show" class="nav-link">
+            <span class="pcoded-micon">
+              <i style="color: #f07d00" class="feather icon-grid"></i></span
+            ><span class="pcoded-mtext">View Data-Sources</span></a
+          >
+        </li>
+        <li class="nav-item pcoded-menu-caption">
+          <label>Activity log</label>
+        </li>
+        <li class="nav-item">
+          <a href="/activities" class="nav-link">
+            <span class="pcoded-micon"
+              ><i
+                style="color: #f07d00"
+                class="feather icon-activity"
+              ></i></span
+            ><span class="pcoded-mtext">Activities</span></a
+          >
+        </li>
+        <li class="nav-item pcoded-menu-caption"></li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link"
+            ><span class="pcoded-micon">
+              <i style="color: #f07d00" class="feather icon-log-out"></i></span
+            ><span class="pcoded-mtext">Logout</span></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- [ navigation menu ] end -->

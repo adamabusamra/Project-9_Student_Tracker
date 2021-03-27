@@ -1,0 +1,104 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<!-- [ Main Content ] start -->
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+  <div class="pcoded-wrapper">
+    <div class="pcoded-content">
+      <div class="pcoded-inner-content">
+        <div class="main-body">
+          <div class="page-wrapper">
+            <div class="row">
+              <!-- [ stiped-table ] start -->
+
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Students</h5>
+                    <a
+                      href="/students-clear-all"
+                      class="btn btn-danger float-right"
+                      ><span class="glyphicon glyphicon-pencil"
+                        >Clear All</span
+                      ></a
+                    >
+                  </div>
+                  <div class="col-md-4 ml-2">
+                    <input
+                      type="text"
+                      name="search"
+                      id="search"
+                      class="form-control"
+                      placeholder="Search"
+                    />
+                  </div>
+                  <div class="card-body table-border-style">
+                    {% if not students %}
+                    <h3 class="mx-auto">No Students</h3>
+                    {%else%}
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="searchable_table">
+                        <thead class="orange-thead">
+                          <tr>
+                            <th>Data Source</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Number</th>
+                            <th>Address</th>
+                            <th>Gender</th>
+                            <th>Education</th>
+                            <th>It Background</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for student in students %}
+                          <tr>
+                            <td>{{ student.data_source.name }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.number }}</td>
+                            <td>{{ student.address }}</td>
+                            <td>{{ student.gender }}</td>
+                            <td>{{ student.education_level }}</td>
+                            {% if student.it_background == True %}
+                            <td>Yes</td>
+                            {% elif student.it_background == False %}
+                            <td>No</td>
+                            {% endif %}
+                            <td>
+                              <a
+                                href="/edit/{{ student.id }}"
+                                class="btn btn-warning"
+                                ><span class="glyphicon glyphicon-pencil"
+                                  >Edit</span
+                                ></a
+                              >
+                            </td>
+                            <td>
+                              <a
+                                class="btn btn-danger"
+                                href="/delete/{{ student.id }}"
+                                >Delete</a
+                              >
+                            </td>
+                          </tr>
+                          {% endfor %} {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- [ stiped-table ] end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block javascripts %} {% load static %}
+<script src="{% static 'assets/js/search_code.js' %}"></script>
+{%endblock javascripts %}

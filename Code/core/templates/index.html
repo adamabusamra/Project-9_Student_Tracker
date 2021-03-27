@@ -1,0 +1,344 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  var high_schoolA = 0;
+  var bachelorsA = 0;
+  var diplomeA = 0;
+  var high_schoolB = 0;
+  var bachelorsB = 0;
+  var diplomeB = 0;
+
+  {% for item in student  %}
+      {% if item.education_level == "bachelors" and item.data_source.name == "Class-A" %}
+           bachelorsA += 1
+      {% elif item.education_level == "bachelors" and item.data_source.name == "Class-B" %}
+           bachelorsB += 1
+      {% endif %}
+
+      {% if item.education_level == "diploma" and item.data_source.name == "Class-A" %}
+           diplomeA += 1
+      {% elif item.education_level == "diploma" and item.data_source.name == "Class-B" %}
+           diplomeB += 1
+      {% endif %}
+
+          {% if item.education_level == "High School" and item.data_source.name == "Class-A"  %}
+          high_schoolA += 1
+          {% elif item.education_level == "High School" and item.data_source.name == "Class-B"  %}
+          high_schoolB += 1
+      {% endif %}
+
+  {% endfor %}
+
+  bachelors = bachelorsA + bachelorsB;
+  diplome = diplomeA + diplomeB;
+  high_school = high_schoolA + high_schoolB;
+
+
+
+   var ctx2 = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+          labels: ["Class A", "Class B", "A & B"],
+          datasets: [{
+              label: 'Bachelors',
+              data: [bachelorsA, bachelorsB, bachelors],
+              {% comment %} data: [5,4,20], {% endcomment %}
+              backgroundColor: [
+                  '#50BE87',
+                  '#50BE87',
+                   '#50BE87'
+
+              ],
+              borderColor: [
+                  '#50BE87',
+                   '#50BE87',
+                  '#50BE87'
+
+              ],
+              borderWidth: 1
+          },
+          {
+              label: 'Diplome',
+              data: [diplomeA, diplomeB, diplome],
+              {% comment %} data: [7,7,10], {% endcomment %}
+              backgroundColor: [
+
+                  '#FFD200',
+                   '#FFD200',
+                  '#FFD200'
+
+              ],
+              borderColor: [
+
+                  '#FFD200',
+                  '#FFD200',
+                  '#FFD200'
+              ],
+              borderWidth: 1
+          },
+          {
+              label: 'High School',
+              data: [high_schoolA, high_schoolB, high_school],
+              {% comment %} data: [2,1,12], {% endcomment %}
+              backgroundColor: [
+
+                  '#8C61C8',
+                  '#8C61C8',
+                  '#8C61C8'
+              ],
+              borderColor: [
+
+                  '#8C61C8',
+                  '#8C61C8',
+                  '#8C61C8'
+              ],
+              borderWidth: 1
+          }
+
+          ]
+
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+
+
+  var Amman = 0;
+  var Madaba = 0;
+  var Irbid = 0;
+  var Jerash = 0;
+  var Zarqa = 0;
+  var Balqa = 0;
+  var Karak = 0;
+  var Mafraq = 0;
+
+
+  {% for item in student  %}
+      {% if item.address == "Amman" %}
+           Amman += 1
+      {% elif item.address == "Madaba" %}
+           Madaba += 1
+      {% elif item.address == "Irbid" %}
+           Irbid += 1
+      {% elif item.address == "Jerash" %}
+           Jerash += 1
+      {% elif item.address == "Zarqa" %}
+           Zarqa += 1
+      {% elif item.address == "Balqa" %}
+           Balqa += 1
+      {% elif item.address == "Mafraq" %}
+           Mafraq += 1
+      {% elif item.address == "Karak" %}
+          Karak += 1
+      {% endif %}
+  {% endfor %}
+
+  new Chart(document.getElementById("doughnut-chart"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Amman", "Madaba", "Irbid", "Jerash", "Zarqa", "Balqa","Mafraq" ,"Karak"],
+        datasets: [
+          {
+            label: "Students by Residence",
+            backgroundColor: ["#50BE87", "#FF7A01","#000000","#8C61C8","#FFD200", "#FF5370","#FFB4E6"],
+            data: [Amman, Madaba, Irbid, Jerash, Zarqa, Balqa,Mafraq, Karak]
+            {% comment %} data: [23, 1, 4, 3, 6, 2, 7] {% endcomment %}
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Students by residence'
+        }
+      }
+  });
+
+
+  var male = 0;
+  var female = 0;
+
+  {% for item in student  %}
+      {% if item.gender == "male" %}
+           male = male + 1
+          {% else %}
+          female = female + 1
+      {% endif %}
+  {% endfor %}
+
+   var ctx = document.getElementById('pie-chart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: ["Male", "Female"],
+          datasets: [{
+              label: '# of Votes',
+              data: [male, female],
+              {% comment %} data: [23, 26], {% endcomment %}
+              backgroundColor: [
+                  '#8C61C8',
+                  '#FFD200'
+              ]
+
+          }]
+      },
+      options: {
+          title: {
+              display: true,
+              text: 'Students by gender'
+          },
+
+      }
+  });
+
+  var it = 0;
+  var not_it = 0;
+
+
+  {% for item in student  %}
+      {% if item.it_background == 1 %}
+           it += 1
+          {% else %}
+          not_it += 1
+      {% endif %}
+  {% endfor %}
+
+  new Chart(document.getElementById("pie-chart2"), {
+      type: 'pie',
+      data: {
+          labels: ["IT", "None-IT"],
+          datasets: [{
+              label: 'IT vs None-IT Background',
+              data: [it, not_it],
+              {% comment %} data: [23, 26], {% endcomment %}
+              backgroundColor: [
+                  '#FF7A01',
+                  '#8e5ea2'
+              ]
+
+          }]
+      },
+
+      options: {
+          title: {
+              display: true,
+              text: 'IT vs None-IT Background'
+          },
+      }
+  });
+  })
+</script>
+
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+  <div class="pcoded-content">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- order-card start -->
+      <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-blue order-card">
+          <div class="card-body">
+            <h6 class="text-white">Total Students</h6>
+            <h2 class="text-right text-white">
+              <i class="fa fa-users float-left"></i
+              ><span>{{student.count}}</span>
+            </h2>
+            <p class="m-b-0">Graduates<span class="float-right">0</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-green order-card">
+          <div class="card-body">
+            <h6 class="text-white">Total Projects</h6>
+            <h2 class="text-right text-white">
+              <i class="fa fa-suitcase float-left"></i><span>10</span>
+            </h2>
+            <p class="m-b-0">Completed<span class="float-right">9</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-yellow order-card">
+          <div class="card-body">
+            <h6 class="text-white">Training Duration / Months</h6>
+            <h2 class="text-right text-white">
+              <i class="fas fa-hourglass-half float-left"></i><span>6</span>
+            </h2>
+            <p class="m-b-0">Progress<span class="float-right">5</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-red order-card">
+          <div class="card-body">
+            <h6 class="text-white">Students Employed</h6>
+            <h2 class="text-right text-white">
+              <i class="feather icon-award float-left"></i><span>10</span>
+            </h2>
+            <p class="m-b-0">Not Employed<span class="float-right">44</span></p>
+          </div>
+        </div>
+      </div>
+      <!-- order-card end -->
+      <!-- users visite start -->
+      <div class="col-md-12 col-xl-12">
+        <div class="card">
+          <canvas id="myChart" width="300" height="100"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-lg-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <canvas id="pie-chart" width="300" height="330"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card seo-card overflow-hidden">
+          <div class="card-body text-center">
+            <canvas id="doughnut-chart" width="300" height="330"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <canvas id="pie-chart2" width="300" height="330"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- social statustic end -->
+    </div>
+    <!-- [ Main Content ] end -->
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Apex Chart -->
+<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+<!-- custom-chart js -->
+<script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}

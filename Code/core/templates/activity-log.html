@@ -1,0 +1,76 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<!-- [ Main Content ] start -->
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+  <div class="pcoded-wrapper">
+    <div class="pcoded-content">
+      <div class="pcoded-inner-content">
+        <div class="main-body">
+          <div class="page-wrapper">
+            <div class="row">
+              <!-- [ stiped-table ] start -->
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Activity Log</h5>
+                    <a href="/jobs-clear-all" class="btn btn-danger float-right"
+                      ><span class="glyphicon glyphicon-pencil"
+                        >Clear All</span
+                      ></a
+                    >
+                  </div>
+                  <div class="col-md-4 ml-2">
+                    <input
+                      type="text"
+                      name="search"
+                      id="search"
+                      class="form-control"
+                      placeholder="Search"
+                    />
+                  </div>
+                  <div class="card-body table-border-style">
+                    {% if not jobs %}
+                    <h3 class="mx-auto">No Activities</h3>
+                    {%else%}
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="searchable_table">
+                        <thead>
+                          <tr>
+                            <th>File Name</th>
+                            <th>Data Source</th>
+                            <th>Execution Time</th>
+                            <th>Number of records</th>
+                            <th>Timestamp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for job in jobs %}
+                          <tr>
+                            <td>{{ job.file_name }}</td>
+                            <td>{{ job.data_source_name }}</td>
+                            <td>
+                              {{ job.execution_time_in_seconds|floatformat:3 }}
+                              Seconds
+                            </td>
+                            <td>{{ job.number_of_records }}</td>
+                            <td>{{ job.created_at|date:'Y-m-d H:i' }}</td>
+                          </tr>
+                          {% endfor %} {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- [ stiped-table ] end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}{% block javascripts %} {% load static %}
+<script src="{% static 'assets/js/search_code.js' %}"></script>
+{%endblock javascripts %}

@@ -1,0 +1,314 @@
+{% extends "layouts/base.html" %} {% block title %} Form Elements {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+  <div class="pcoded-content">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ form-element ] start -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mt-2">Add New Student</h5>
+            {% if error %}
+            <div class="alert alert-danger mb-0" role="alert">
+              <p class="mb-0">{{error}}</p>
+            </div>
+            {% endif %}
+            <br />
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link active"
+                  id="home-tab"
+                  data-toggle="tab"
+                  href="#home"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                  >Manually</a
+                >
+              </li>
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link"
+                  id="profile-tab"
+                  data-toggle="tab"
+                  href="#profile"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                  >Uploads</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <br />
+                <!-- Create User Form-->
+                <form method="POST" class="post-form mt-3" action="/students">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1"
+                          >Data Source</label
+                        >
+                        <select
+                          class="form-control"
+                          id="exampleFormControlSelect1"
+                          name="data_source"
+                          required
+                        >
+                          <option hidden selected value="">
+                            Select Data Source
+                          </option>
+                          {%for cat in data_sources%}
+                          <option value="{{cat.id}}">{{cat.name}}</option>
+                          {%endfor%}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Name"
+                          name="name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          placeholder="Enter email"
+                          name="email"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Mobile Number"
+                          name="number"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Residence</label>
+                        <select
+                          class="form-control"
+                          id="exampleFormControlSelect1"
+                          name="address"
+                          required
+                        >
+                          <option hidden selected value="">
+                            Select Governorate
+                          </option>
+                          <option>Irbid</option>
+                          <option>Ajloun</option>
+                          <option>Jarash</option>
+                          <option>Mafraq</option>
+                          <option>Balqa</option>
+                          <option>Amman</option>
+                          <option>Zarqa</option>
+                          <option>Madaba</option>
+                          <option>Karak</option>
+                          <option>Tafila</option>
+                          <option>Amman</option>
+                          <option>Aqaba</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Github Link</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Github"
+                          name="github"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1"
+                          >Education Level</label
+                        >
+                        <select
+                          class="form-control"
+                          id="exampleFormControlSelect1"
+                          name="education_level"
+                          required
+                        >
+                          <option hidden selected value="">
+                            Select Education
+                          </option>
+                          <option>High School</option>
+                          <option>Diploma</option>
+                          <option>Bachelors</option>
+                          <option>Masters</option>
+                          <option>Phd</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Linkedin Account</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Linkedin"
+                          name="linkedin"
+                          required
+                        />
+                      </div>
+                      <div class="mt-2 d-block">
+                        <label class="mr-5">Gender</label>
+                      </div>
+
+                      <div class="d-inline mr-5">
+                        <div class="custom-control custom-radio d-inline">
+                          <input
+                            type="radio"
+                            id="customRadio1"
+                            name="gender"
+                            class="custom-control-input"
+                            value="male"
+                            required
+                          />
+                          <label class="custom-control-label" for="customRadio1"
+                            >Male</label
+                          >
+                        </div>
+                        <div class="custom-control custom-radio d-inline">
+                          <input
+                            type="radio"
+                            id="customRadio2"
+                            name="gender"
+                            class="custom-control-input"
+                            value="female"
+                            required
+                          />
+                          <label class="custom-control-label" for="customRadio2"
+                            >Female</label
+                          >
+                        </div>
+                      </div>
+
+                      <div class="custom-control custom-checkbox d-inline ml-5">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="customCheck1"
+                          name="it_background"
+                          required
+                        />
+                        <label class="custom-control-label" for="customCheck1"
+                          >Has IT background</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- End Create User Form-->
+              </div>
+              <div
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              >
+                <br />
+                <!-- Create User Form-->
+                <form
+                  action="/upload"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="mt-3"
+                >
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="exampleFormControlSelect1">Choose File</label>
+                      <div class="input-group mb-3">
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="inputGroupFile01"
+                            name="myfile"
+                            required
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="inputGroupFile01"
+                            >Choose file</label
+                          >
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Upload
+                      </button>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1"
+                          >Data Source</label
+                        >
+                        <select
+                          class="form-control"
+                          id="exampleFormControlSelect1"
+                          name="data_source"
+                          required
+                        >
+                          <option hidden selected value="">
+                            Select Data Source
+                          </option>
+                          {%for cat in data_sources%}
+                          <option value="{{cat.id}}">{{cat.name}}</option>
+                          {%endfor%}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %} {% endblock javascripts %}
