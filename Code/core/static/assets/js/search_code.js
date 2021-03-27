@@ -9,7 +9,7 @@ $(document).ready(function () {
         if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
           found = "true";
         }
-        console.log($(this).text());
+        // console.log($(this).text());
       });
       if (found == "true") {
         $(this).show();

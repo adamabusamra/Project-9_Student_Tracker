@@ -44,9 +44,13 @@
                             <th>Email</th>
                             <th>Number</th>
                             <th>Address</th>
+                            {% comment %}
                             <th>Gender</th>
+                            {% endcomment %}
                             <th>Education</th>
+                            {% comment %}
                             <th>It Background</th>
+                            {% endcomment %}
                             <th>Edit</th>
                             <th>Delete</th>
                           </tr>
@@ -59,13 +63,15 @@
                             <td>{{ student.email }}</td>
                             <td>{{ student.number }}</td>
                             <td>{{ student.address }}</td>
+                            {% comment %}
                             <td>{{ student.gender }}</td>
+                            {% endcomment %}
                             <td>{{ student.education_level }}</td>
-                            {% if student.it_background == True %}
+                            {% comment %} {% if student.it_background == True %}
                             <td>Yes</td>
                             {% elif student.it_background == False %}
                             <td>No</td>
-                            {% endif %}
+                            {% endif %} {% endcomment %}
                             <td>
                               <a
                                 href="/edit/{{ student.id }}"

@@ -19,12 +19,9 @@ from time import time
 
 @login_required(login_url="/login/")
 def index(request):
+    students = Student.objects.all()
+    return render(request, 'index.html', {'student': students})
 
-    context = {}
-    context['segment'] = 'index'
-
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
 
 
 @login_required(login_url="/login/")
@@ -57,19 +54,27 @@ def pages(request):
 
 @login_required(login_url="/login/")
 def student(request):
+    #This is for POST requests
     if request.method == "POST":
-        print(request.POST)
+       
+        #Check IT_Backround field
         if request.POST.get("it_background") == "on":
             it_background = 1
 
         else:
             it_background = 0
 
+        #Store Student Database
         new_student = Student(name=request.POST.get("name"), email=request.POST.get("email"), number=request.POST.get("number"), linkedin=request.POST.get("linkedin"), address=request.POST.get("address"), github=request.POST.get("github"), gender=request.POST.get("gender"), education_level=request.POST.get("education_level"),  it_background=it_background, data_source_id=request.POST.get("data_source"))
         new_student.save()
+
+        #REdirect to student table
         return redirect("/show")
-    data_sources = Data_source.objects.all()
-    return render(request, "create-student.html", {"data_sources": data_sources})
+
+    #This is for GET requests
+    else:
+        data_sources = Data_source.objects.all()
+        return render(request, "create-student.html", {"data_sources": data_sources})
 
 
 @login_required(login_url="/login/")
@@ -127,6 +132,7 @@ def simple_upload(request):
                 file.read().decode('utf-8'), format='csv')
         else:
             return render(request, 'create-student.html', {"error": "Accpeted file extentions : (xlsx),(xls),(csv)","data_sources": Data_source.objects.all()})
+
         number_of_records = 0
         for data in imported_data:
             number_of_records+=1
@@ -155,11 +161,15 @@ def simple_upload(request):
 
 @login_required(login_url="/login/")
 def data_source(request):
+    #This is for POST requests
     if request.method == "POST":
         new_data_source = Data_source(name=request.POST.get("name"))
         new_data_source.save()
         return redirect("/data_source/show")
-    return render(request, "create-data-source.html")
+
+    #This is for GET requests
+    else:
+        return render(request, "create-data-source.html")
 
 
 @login_required(login_url="/login/")
@@ -209,13 +219,4 @@ def activity_log_clear_all(request):
     ActivityLog.objects.all().delete()
     return redirect("/activities")
 
-
-##
-# Charts
-##
-
-@login_required(login_url="/login/")
-def charts(request):
-    students = Student.objects.all()
-    return render(request, 'index.html', {'student': students})
 
